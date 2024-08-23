@@ -20,8 +20,12 @@ RUN apt-get update && apt-get install -y \
   git \
   gnupg \
   sqlite3 \
-  unzip 
-
+  unzip \
+  p7zip-full \
+  postgresql-client \
+  inetutils-ping  \
+  net-tools
+  
 RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 RUN echo "deb https://packages.sury.org/php/ bookworm main" | tee /etc/apt/sources.list.d/php.list
 
@@ -65,8 +69,8 @@ sed -i -e '/max_execution_time =/ s/= .*/= 1200/' /etc/php/7.4/apache2/php.ini ;
 echo 'open_basedir = "/"' >> /etc/php/7.4/apache2/php.ini ; 
 
 
-RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin  \
-ln -s /usr/bin/composer.phar /usr/bin/composer 
+RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin 
+RUN ln  -s /usr/bin/composer.phar /usr/bin/composer 
 
 RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
