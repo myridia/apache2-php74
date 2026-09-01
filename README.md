@@ -1,3 +1,4 @@
+<img src="apache2-php74.svg" alt="apache2-php74" width="120">
 # apache2-php74
 Latest Debian Bookworm with Apache and PHP74
 
